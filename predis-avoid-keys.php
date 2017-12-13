@@ -13,12 +13,13 @@ $pattern = '*';
 
 // KEYS way (avoid this)
 $keys = $redisClient->keys($pattern);
+$redisClient->del($keys);
 
 // SCAN way (just do it)
 $iterator = 0;
 do {
     list($iterator, $keys) = Redis::scan($iterator, 'match', $pattern);
     if ($keys) {
-        Redis::del($keys);
+        $redisClient->del($keys);
     }
 } while ($iterator);
