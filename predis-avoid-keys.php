@@ -18,7 +18,7 @@ $redisClient->del($keys);
 // SCAN way (just do it)
 $iterator = 0;
 do {
-    list($iterator, $keys) = Redis::scan($iterator, 'match', $pattern);
+    list($iterator, $keys) = $redisClient->scan($iterator, 'match', $pattern);
     if ($keys) {
         $redisClient->del($keys);
     }
